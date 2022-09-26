@@ -91,7 +91,7 @@ Single-task learning, data pooling, clustered MTL and low-rank MTL correspond to
 
 ## Demonstration
 
-See `Demo.html` for a real data example.
+See `Demo.ipynb` for a real data example.
 
 ## Citation
 ```
