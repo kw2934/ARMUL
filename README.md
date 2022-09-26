@@ -43,11 +43,11 @@ test = ARMUL(link) # link == 'linear' or 'logistic'
 test.vanilla(data, lbd, standardization = True, intercept = True)
 ```
 
-If `standardization = True` (default), the raw features (for linear and logistic regression) and responses (for linear regression only) will be standardized to have mean zero and variance 1. If `intercept = True` (default), an all-one feature will be added to the datasets. See `ARMUL.py` for other arguments of the function `vanilla`, such as the step size and number of iterations of the proximal gradient descent algorithm for optimization. The two components $\widehat{\Theta}$ and $\widehat{\Gamma}$ of the optimal solution can be retrieved from `test.models['vanilla']` and `test.models['vanilla_gamma']`, respectively. To evaluate the out-of-sample performance, prepare testing data (`data_test`) from the $m$ tasks in the same form as the training data (`data`). Then, execute
+If `standardization = True` (default), the raw features (for linear and logistic regression) and responses (for linear regression only) will be standardized to have zero mean and unit variance. If `intercept = True` (default), an all-one feature will be added to the datasets. See `ARMUL.py` for other arguments of the function `vanilla`, such as the step size and number of iterations of the proximal gradient descent algorithm for optimization. The two components $\widehat{\Theta}$ and $\widehat{\Gamma}$ of the optimal solution can be retrieved from `test.models['vanilla']` and `test.models['vanilla_gamma']`, respectively. To evaluate the out-of-sample performance, prepare testing data (`data_test`) from the $m$ tasks in the same form as the training data (`data`). Then, execute
 ```sh
 test.evaluate(data_test, model = 'vanilla')
 ```
-This computes the testing errors (square errors for linear regression and misclassification errors for logistic regression) on the $m$ tasks. For linear regression, is also returns the overall R-square on all the data.
+This computes the testing errors (mean square errors for linear regression and misclassification errors for logistic regression) on the $m$ tasks. The $m$ individual errors are stored at `test.results['average error']`, whose average (weighted by sample sizes) is `test.results['average error']`. For linear regression, `test.results['R2']` returns the overall R-square on all the data.
 
 
 Clustered and low-rank ARMUL can be implemented using `test.clustered(data, lbd, K)` and `test.lowrank(data, lbd, K)`, respectively. Here `K` is the number of clusters or the rank.
@@ -58,7 +58,7 @@ Vanilla ARMUL has tuning parameters $(\lambda_1,\cdots,\lambda_m)$. Suppose ther
 ```sh
 test.cv(data, lbd_list, model = 'vanilla', n_fold = 5, seed = 1000, standardization = True, intercept = True)
 ```
-estimates the testing error (average square error or average misclassification error over all tasks) of vanilla ARMUL with each configuration $( \lambda_{1}^{(s)}, \cdots, \lambda_{m}^{(s)} )$ using 5-fold cross-validation. Here `n_fold` is the number of folds and `seed` is the random seed. After that,
+estimates the testing error (mean square errors or misclassification errors averaged over all tasks, weighted by sample sizes) of vanilla ARMUL with each configuration $( \lambda_{1}^{(s)}, \cdots, \lambda_{m}^{(s)} )$ using 5-fold cross-validation. Here `n_fold` is the number of folds and `seed` is the random seed. After that,
 
 1. `test.errors_cv` stores the validations errors corresponding to the $S$ candidate configurations;
 
@@ -66,13 +66,13 @@ estimates the testing error (average square error or average misclassification e
 
 3. vanilla ARMUL is refitted on all the training data using the selected configuration, and `test.models['vanilla']` gives the final $\widehat{\Theta}$.
 
-We can evaluate the obtained model on testing data by running `test.evaluate(data_test, model = 'vanilla')` as before. The above procedure is helpful for selecting the constant $C$ in the suggested expression $\lambda_j = C \sqrt{d / n_j}$. 
+We can evaluate the obtained $\widehat{\Theta}$ on testing data by running `test.evaluate(data_test, model = 'vanilla')` as before. The above procedure is helpful for selecting the constant $C$ in the suggested expression $\lambda_j = C \sqrt{d / n_j}$. 
 
 To apply cross-validation to clustered or low-rank ARMUL, set `model = 'clustered'` or  `model = 'lowrank'`, choose a value for `K`, and execute
 ```sh
 test.cv(data, lbd_list, model = model, K = K, n_fold = 5, seed = 1000, standardization = True, intercept = True)
 ```
-For each `K`, it uses cross-validation to select from multiple configurations of $\lambda_j$'s.
+For a given `K`, it uses cross-validation to select from multiple configurations of $\lambda_j$'s in `lbd_list`.
 
 
 ### Baseline procedures
