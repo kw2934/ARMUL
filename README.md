@@ -47,7 +47,7 @@ If `standardization = True` (default), the raw features (for linear and logistic
 ```sh
 test.evaluate(data_test, model = 'vanilla')
 ```
-This computes the testing errors (mean square errors for linear regression and misclassification errors for logistic regression) on the $m$ tasks. The $m$ individual errors are stored at `test.results['average error']`, whose average (weighted by sample sizes) is `test.results['average error']`. For linear regression, `test.results['R2']` returns the overall R-square on all the data.
+This computes the testing errors (mean square errors for linear regression and misclassification errors for logistic regression) on the $m$ tasks. The $m$ individual errors are stored at `test.results['errors']`, whose average (weighted by sample sizes) is `test.results['average error']`. For linear regression, `test.results['R2']` returns the overall R-square on all the data.
 
 
 Clustered and low-rank ARMUL can be implemented using `test.clustered(data, lbd, K)` and `test.lowrank(data, lbd, K)`, respectively. Here `K` is the number of clusters or the rank.
@@ -86,7 +86,7 @@ from ARMUL import Baselines
 base = Baselines(link) # link == 'linear' or 'logistic'
 ```
 
-Single-task learning, data pooling, clustered MTL and low-rank MTL correspond to `base.STL_train(data)`, `base.DP_train(data)`, `base.clustered_train(data, K)` and `base.lowrank_train(data, K)`, respectively. See `ARMUL.py` for other arguments of those methods. The models can be evaluated using `base.evaluate(data_test, model)`, where `model` is `STL`, `DP`, `clustered` or `lowrank`.
+Single-task learning, data pooling, clustered MTL and low-rank MTL correspond to `base.STL_train(data)`, `base.DP_train(data)`, `base.clustered_train(data, K)` and `base.lowrank_train(data, K)`, respectively. See `ARMUL.py` for other arguments of those methods. The models can be evaluated using `base.evaluate(data_test, model)`, where `model` is `'STL'`, `'DP'`, `'clustered'` or `'lowrank'`.
 
 
 ## Demonstration
