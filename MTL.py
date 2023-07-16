@@ -360,7 +360,7 @@ def pgd_v(X, y, link, lbd, w, v, penalty = 'new', eta = 0.01, T = 100):
         if penalty == 'new':
             r = np.linalg.norm(tmp, ord = 'fro')
             if r > 0:
-                v_t = (1 - lbd * eta / r) * tmp
+                v_t = max(0, 1 - lbd * eta / r) * tmp
             else:
                 v_t = 0
         else: # 'ridge'
