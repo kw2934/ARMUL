@@ -1,4 +1,4 @@
-# ARMUL: Adaptive and Robust Multi-task Learning
+# ARMUL: Adaptive and Robust Multi-Task Learning
 Paper: (https://arxiv.org/abs/2202.05250).
 
 ## Introduction
@@ -7,7 +7,7 @@ Suppose there are $m$ datasets (tasks), the $j$-th of which has $n_j$ samples an
 
 $$ \min_{\Theta \in \Omega} \bigg\lbrace \sum_{j=1}^m w_j f_j(\theta_j) \bigg\rbrace, $$
 
-where $w_j$'s are weights, each column of $\Theta = (\theta_1,\cdots,\theta_m) \in \mathbb{R}^{d\times m}$ is the parameter vector of a task, and $\Omega  \subseteq \mathbb{R}^{d\times m}$ encodes the prior knowledge of task relatedness. To handle possible misspecification of the structure, we propose a method named Adaptive and Robust MUlti-task Learning (ARMUL):
+where $w_j$'s are weights, each column of $\Theta = (\theta_1,\cdots,\theta_m) \in \mathbb{R}^{d\times m}$ is the parameter vector of a task, and $\Omega  \subseteq \mathbb{R}^{d\times m}$ encodes the prior knowledge of task relatedness. To handle possible misspecification of the structure, we propose a method named Adaptive and Robust MUlti-Task Learning (ARMUL):
 
 $$ \min_{ \Theta \in \mathbb{R}^{d\times m}, \Gamma \in \Omega} 
 \bigg\lbrace \sum_{j=1}^m w_j [ f_j(\theta_j) +

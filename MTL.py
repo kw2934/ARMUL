@@ -19,6 +19,7 @@ class MTL:
             # 'ridge': lbd_j * ||v||^2
 
         [self.X, self.y, self.X_means, self.X_stds, self.y_mean, self.y_std, self.n_list, self.d_out] = MTL_preprocessing(data, link, intercept, n_class, standardization)
+        self.y_raw = data[1] # used in clustered and low-rank ARMUL
 
         self.intercept, self.n_class, self.standardization = intercept, n_class, standardization
 
@@ -66,7 +67,11 @@ class MTL:
 
         ####################
         # warm start by STL
-        base =  baselines([self.X, self.y], self.link, False, self.n_class, False)
+        if self.link == 'linear' or self.n_class == 1:
+            base = baselines([self.X, self.y], self.link, False, self.n_class, False)
+        else:
+            base = baselines([self.X, self.y_raw], self.link, False, self.n_class, False)
+        
         base.STL_train(eta = eta_local, T = T_global)
         stl = base.models['STL'] # STL
 
@@ -116,7 +121,11 @@ class MTL:
 
         ####################
         # warm start by STL
-        base =  baselines([self.X, self.y], self.link, False, self.n_class, False)
+        if self.link == 'linear' or self.n_class == 1:
+            base = baselines([self.X, self.y], self.link, False, self.n_class, False)
+        else:
+            base = baselines([self.X, self.y_raw], self.link, False, self.n_class, False)
+
         base.STL_train(eta = eta_local, T = T_global)
         stl = base.models['STL'] # STL
 
