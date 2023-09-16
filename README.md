@@ -93,6 +93,12 @@ Single-task learning, data pooling, clustered MTL and low-rank MTL correspond to
 
 See `Demo.ipynb` for a real data example.
 
+
+## Experiments in the paper
+
+The folder `experiments in the paper` contains all the experimental results and codes of the ARMUL paper. See `Demo_reproducibility.ipynb` for how to reproduce the results.
+
+
 ## Citation
 ```
 @article{duan2022adaptive,
