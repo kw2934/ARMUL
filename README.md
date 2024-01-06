@@ -1,5 +1,5 @@
 # ARMUL: Adaptive and Robust Multi-Task Learning
-Paper: (https://arxiv.org/abs/2202.05250).
+Paper: Duan, Y. and Wang, K., 2023. Adaptive and robust multi-task learning. The Annals of Statistics, 51(5), pp.2015-2039. (https://arxiv.org/abs/2202.05250).
 
 ## Introduction
 
@@ -101,10 +101,14 @@ The folder `experiments in the paper` contains all the experimental results and 
 
 ## Citation
 ```
-@article{duan2022adaptive,
+@article{DW23,
   title={Adaptive and robust multi-task learning},
   author={Duan, Yaqi and Wang, Kaizheng},
-  journal={arXiv preprint arXiv:2202.05250},
-  year={2022}
+  journal={The Annals of Statistics},
+  volume={51},
+  number={5},
+  pages={2015--2039},
+  year={2023},
+  publisher={Institute of Mathematical Statistics}
 }
 ```
